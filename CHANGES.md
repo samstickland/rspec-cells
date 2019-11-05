@@ -1,3 +1,7 @@
+# 0.3.5
+
+Support rspec-rails 4.x. This is required for Rails 6
+
 # 0.3.4
 
 * Allow Cells 4.1.
