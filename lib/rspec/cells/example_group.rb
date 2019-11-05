@@ -33,13 +33,24 @@ module RSpec
 
         before do # called before every it.
           @routes = ::Rails.application.routes
-          ActionController::Base.allow_forgery_protection = false
+        end
+
+        around do |example|
+          begin
+            old_value = ActionController::Base.allow_forgery_protection
+            ActionController::Base.allow_forgery_protection = false
+
+            example.run
+
+          ensure
+            ActionController::Base.allow_forgery_protection = old_value
+          end
         end
 
         # add Example::controller and ::controller_class.
         extend RSpec::Cells::ExampleGroup::Controller
-        let (:controller_class) {  }
-        let (:controller) { controller_for(controller_class) }
+        let(:controller_class) {}
+        let(:controller) { controller_for(controller_class) }
       end
 
 
